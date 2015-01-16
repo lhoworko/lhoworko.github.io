@@ -3,17 +3,17 @@ permalink:        pretty
 relative_permalinks: true
 
 # Setup
-title:            Poole
-tagline:          The Jekyll Butler
-url:              http://getpoole.com
+title:            Lee Howorko
+tagline:
+url:              http://lhoworko.github.io
 paginate:         1
 baseurl:          /
 author:
-  name:           Mark Otto
-  url:            https://twitter.com/mdo
-  email:          markdotto@gmail.com
+  name:           Lee Howorko
+  url:            https://twitter.com/lhoworko
+  email:          lhoworko@gmail.com
 
 # Custom vars
 version:          1.0.0
 github:
-  repo:           https://github.com/poole/poole
+  repo:           https://github.com/lhoworko/lhoworko.github.io
