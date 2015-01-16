@@ -1,0 +1,7 @@
+span#pages_list {
+  float: right;
+}
+
+span#pages_list small a {
+  margin-left: 15px;
+}
