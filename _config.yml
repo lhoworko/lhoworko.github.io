@@ -6,7 +6,7 @@ relative_permalinks: true
 title:            Lee Howorko
 tagline:          lhoworko
 url:              "http://lhoworko.github.io"
-paginate:         1
+paginate:         3
 baseurl:          /
 author:
   name:           Lee Howorko
@@ -17,6 +17,7 @@ author:
 version:          1.0.0
 github:           "https://github.com/lhoworko"
 pages_list:
-  About: '/about'
-  Archive: '/archive'
-  GitHub: 'https://github.com/lhoworko'
+  Home:           '/'
+  About:          '/about/'
+  Archive:        '/archive/'
+  GitHub:         'https://github.com/lhoworko'
