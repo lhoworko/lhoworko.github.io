@@ -15,4 +15,6 @@ author:
 
 # Custom vars
 version:          1.0.0
+about:            /about
+archive:          /archive
 github:           "https://github.com/lhoworko"
