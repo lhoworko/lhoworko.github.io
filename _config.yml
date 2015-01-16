@@ -4,7 +4,7 @@ relative_permalinks: true
 
 # Setup
 title:            Lee Howorko
-tagline:
+tagline:          lhoworko
 url:              http://lhoworko.github.io
 paginate:         1
 baseurl:          /
@@ -15,5 +15,5 @@ author:
 
 # Custom vars
 version:          1.0.0
-github:
-  repo:           https://github.com/lhoworko/lhoworko.github.io
+github:           https://github.com/lhoworko
+  repo:
