@@ -1,0 +1,24 @@
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+	var width = 600,
+		height = 400,
+		data = [];
+
+	var margin = { 
+		"left": 30,
+		"top": 10,
+		"right": 10,
+		"bottom": 30
+	}
+
+	var chart_width = width - margin.left - margin.right,                            
+		chart_height = height - margin.top - margin.bottom; 
+
+	var x = d3.scale.linear()
+			.domain([0, 1])
+			.range([0, chart_width]);
+
+	var y = d3.scale.linear()
+			.domain([0, 1])
+			.range([chart_height, 0]);
+</script>

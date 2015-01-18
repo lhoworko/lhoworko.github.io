@@ -1,0 +1,28 @@
+<style>
+	.scatter {
+	/*	font: 12px sans-serif;*/
+	}
+</style>
+<script>
+	var xAxis1 = d3.svg.axis()
+			.scale(x);
+
+	var yAxis1 = d3.svg.axis()
+			.scale(y);
+	
+	var svg1 = d3.selectAll("div#scatter1")                                                      
+			.append("svg")                                                           
+			.attr("width", width)                                                    
+			.attr("height", 70);                                                 
+
+	var chartGroup1 = svg1.append("g")                                                 
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")"); 
+
+	chartGroup1.append("g")                                                           
+			.attr("class", "x axis")                                                 
+			.call(xAxis1);                                                            
+
+	chartGroup1.append("g")                                                           
+			.attr("class", "y axis")                                                 
+			.call(yAxis1);  
+</script>

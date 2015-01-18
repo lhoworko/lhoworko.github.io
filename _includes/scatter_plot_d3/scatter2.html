@@ -1,0 +1,36 @@
+<style>
+	#scatter2 text {
+		font: 12px sans-serif;
+	}
+	#scatter2 .axis path,
+	#scatter2 .axis line {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+	}
+</style>
+<script>
+	var xAxis2 = d3.svg.axis()
+			.scale(x);
+
+	var yAxis2 = d3.svg.axis()
+			.orient('left')
+			.scale(y);
+	
+	var svg2 = d3.selectAll("div#scatter2")                                                      
+			.append("svg")                                                           
+			.attr("width", width)                                                    
+			.attr("height", height);                                                 
+
+	var chartGroup2 = svg2.append("g")                                                 
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")"); 
+
+	chartGroup2.append("g")                                                           
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + chart_height + ")")
+			.call(xAxis2);                                                            
+
+	chartGroup2.append("g")                                                           
+			.attr("class", "y axis")                                                 
+			.call(yAxis2);  
+</script>

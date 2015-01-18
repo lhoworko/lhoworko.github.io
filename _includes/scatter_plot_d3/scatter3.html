@@ -1,0 +1,53 @@
+<style>
+	#scatter3 text {
+		font: 12px sans-serif;
+	}
+	#scatter3 .axis path,
+	#scatter3 .axis line {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+	}
+</style>
+<script>
+	var xAxis3 = d3.svg.axis()
+			.scale(x);
+
+	var yAxis3 = d3.svg.axis()
+			.orient('left')
+			.scale(y);
+	
+	var svg3 = d3.selectAll("div#scatter3")                                                      
+			.append("svg")                                                           
+			.attr("width", width)                                                    
+			.attr("height", height);                                                 
+
+	var chartGroup3 = svg3.append("g")                                                 
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")"); 
+
+	chartGroup3.append("g")                                                           
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + chart_height + ")")
+			.call(xAxis3);                                                            
+
+	chartGroup3.append("g")                                                           
+			.attr("class", "y axis")                                                 
+			.call(yAxis3);
+	
+	function update3() {
+			chartGroup3.selectAll("circle")                                               
+					.data(data)                                                          
+					.enter()
+					.append("circle")
+					.attr("r", 5);
+			
+			chartGroup3.selectAll("circle")
+					.attr("transform", function (d) {
+						return "translate(" + x(d[0]) + "," + y(d[1]) + ")";
+					});
+			
+			setTimeout(update3, 1000);
+		}
+		
+		update3();
+</script>
