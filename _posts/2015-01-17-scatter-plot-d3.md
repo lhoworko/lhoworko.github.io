@@ -143,6 +143,8 @@ We now have something like this..
 
 Much better.
 
+## Data
+
 If you were making a static chart you would add the data points at this point. What we want to do is add 100 data points, then every second move them around the chart. The way we will do this is every second we will generate 100 new data points. These points will be either added to the chart (on the first update) or move to their new location. This will demonstrate the use of D3 transitions and enter.
 
 Lets make a function that we will be calling every second. Call it update.
@@ -176,6 +178,8 @@ Lets take another look at what we have..
 
 <div class="scatter" id="scatter3"></div>
 {% include scatter_plot_d3/scatter3.html %}
+
+## Transition
 
 You will notice that on each update the circles disapear and appear at their new location. Lets make them nicely slide there instead. This is easily done with D3 transitions. In the second chartGroup bit simply add the lines .transition and .duration.
 
