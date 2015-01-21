@@ -5,7 +5,7 @@ title: Scatter Plot in D3
 
 {% include scatter_plot_d3/basics.html %}
 
-For the following tutorial we are going to go through the process of making an interactive scatter plot in D3. By the end of the post you should have an understanding of how to add arbitrary data points to the chart, as well as smoothly transition them as data is changed or updated. This is the first of what will hopefully be a series of D3 tutorials. Lets get started.
+For the following tutorial we are going to go through the process of making an updatable scatter plot in D3. By the end of the post you should have an understanding of how to add arbitrary data points to the chart, as well as smoothly transition them as data is changed or updated. This is the first of what will hopefully be a series of D3 tutorials. Lets get started.
 
 So first things first lets make a basic html page and include the D3.js script.
 
@@ -36,7 +36,7 @@ and navigate to localhost:8000.
 
 ## Scales
 
-The first thing we will add to our code other than the basic variables is the x and y linear scales. What these do is map the input data to an output pixel value for the chart. It's definitely possible to manually do this math, but D3 just makes it so much easier. Take a look [here](http://alignedleft.com/tutorials/d3/scales) for a very in depth explanation of linear scales. As for that data, we will be using random data between 0 and 1. All of the following goes inside the empty html script tags.
+The first thing we will add to our code other than the basic variables is the x and y linear scales. What these do is map the input data to an output pixel value for the chart. It's definitely possible to manually do this math, but D3 just makes it so much easier. Take a look [here](http://alignedleft.com/tutorials/d3/scales) for a very in depth explanation of linear scales. As for the data used in this example we will be using random points between 0 and 1. All of the following goes inside the empty html script tags.
 
 {% highlight javascript %}
 var width = 600,
@@ -64,55 +64,64 @@ var y = d3.scale.linear()
 
 ## SVG
 
-The first thing we need to add to the page is a place to put the chart. Everything needs to be within an svg tag. To group the chart pieces together we will also add a <g> element. This allows us to offset the <g> element by the margins so that we don't have to do so with every other element in the chart.
+The first thing we need to add to the page is a place to put the chart. Everything needs to be within an svg tag. To group the chart pieces together we will also add a g element. This allows us to offset the contents of the g element by the margins so that we don't have to do so individually with every element. An example would be if we want to move a bunch of books to the left by one foot, it's easier to have all the books in a box which is moved, rather than moving each book one by one.
 
 {% highlight javascript %}
+// Create the svg element to hold the chart.
 var svg = d3.select("body")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
+// Create the g element inside the svg element. 
+// Translate it left by margin.left, and down by margin.top.
 var chartGroup = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 {% endhighlight %}
 
 ## Axes
 
-Next is the x and y axes. We will use the x and y scales to let each axis know how long to be (from the range), and what to have for ticks (from the domain). The xAxis and yAxis variables go between the y variable initialization and the svg initialization.
+Next is the x and y axes. We will use the x and y scales to let each axis know how long to be (from the range), and what values to have (from the domain). The xAxis and yAxis variables goes after the x and y scale variable initializations and the svg initialization.
 
 {% highlight javascript %}
+// Create an x axis and scale it by the x scale.
 var xAxis = d3.svg.axis()
         .scale(x);
 
+// Similarly for the y axis.
 var yAxis = d3.svg.axis()
         .scale(y);
 {% endhighlight %}
 
-Now after the chartGroup code add the following.
+Now we need to add the axes to the chart. Looking back at the book example above, we want to put the axes inside the chartGroup, or the box.
 
 {% highlight javascript %}
+// Create a new group to hold the x axis. Calling .call(xAxis) will init the axis.
 chartGroup.append("g")
         .attr("class", "x axis")
         .call(xAxis);
 
+// Similarly for the y axis.
 chartGroup.append("g")
         .attr("class", "y axis")
         .call(yAxis);
 {% endhighlight %}
 
-Lets take our first look at what we have so far. If you haven't yet startied the HTTP server and go to localhost:8000. You should have something like this..
+Lets take our first look at what we have so far. If you haven't yet started the HTTP server do that now and go to localhost:8000. You should have something like this..
 
 <div class="scatter" id="scatter1"></div>
 {% include scatter_plot_d3/scatter1.html %}
 
-Obviously we want the x axis to be at the bottom and the y axis on the left. This is a simple fix, just modify the code to look like the following.
+This is a good start but obviously not what we want. We need to rotate the yAxis to be on the left, and shift the xAxis to be at the bottom. This is a simple fix, just modify the code like so.
 
 {% highlight javascript %}
 ...
+// Orient the yAxis to be on the left.
 var yAxis = d3.svg.axis()
         .orient('left')
         .scale(y);
 ...
+// Notice the new translate line.
 chartGroup.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + chart_height + ")")
