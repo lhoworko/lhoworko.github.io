@@ -5,7 +5,7 @@ title: Scatter Plot in D3
 
 {% include scatter_plot_d3/basics.html %}
 
-For the following tutorial we are going to go through the process of making an updatable scatter plot in D3. By the end of the post you should have an understanding of how to add arbitrary data points to the chart, as well as smoothly transition them as data is changed or updated. This is the first of what will hopefully be a series of D3 tutorials. Lets get started.
+For my first tutorial we are going to go through the process of making an updatable scatter plot in D3. By the end of the post you should have an understanding of how to add arbitrary data points to the chart, as well as smoothly transition them as data is changed or updated. This is the first of what will hopefully be a series of D3 tutorials. Lets get started.
 
 So first things first lets make a basic html page and include the D3.js script.
 
@@ -160,16 +160,19 @@ Lets make a function that we will be calling every second. Call it update.
 
 {% highlight javascript %}
 function update() {
+    // Add 100 random points to the data array.
     for (var i = 0; i < 100; i++) {
         data[i] = [Math.random(), Math.random()];
     }
 
+    // Enter the data points onto the chart.
     chartGroup.selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
             .attr("r", 5);
 
+    // Move the points to their new locations.
     chartGroup.selectAll("circle")
             .attr("transform", function (d) {
                 return "translate(" + x(d[0]) + "," + y(d[1]) + ")";
@@ -193,6 +196,7 @@ Lets take another look at what we have..
 You will notice that on each update the circles disapear and appear at their new location. Lets make them nicely slide there instead. This is easily done with D3 transitions. In the second chartGroup bit simply add the lines .transition and .duration.
 
 {% highlight javascript %}
+// Notice the transition and duration lines.
 chartGroup.selectAll("circle")
         .transition()
         .duration(800)
@@ -208,6 +212,6 @@ Now after all of that we have the following. Seems almost funny that it's more d
 <div class="scatter" id="scatter4"></div>
 {% include scatter_plot_d3/scatter4.html %}
 
-That's all for this tutorial. If you made it this far thanks for reading. Hopefully I'll have more D3 stuff up shortly.
+There is much more we could do to make the chart better, but that's all for this tutorial. If you made it this far thanks for reading. Hopefully I'll have more D3 stuff up shortly.
 
 Full code can be found [here](http://bl.ocks.org/lhoworko/ef36fdd4e7315978925b).
