@@ -3,9 +3,12 @@ layout: post
 title: Scatter Plot in D3
 ---
 
-{% include scatter_plot_d3/basics.html %}
 
 For my first tutorial we are going to go through the process of making an updatable scatter plot in D3. By the end of the post you should have an understanding of how to add arbitrary data points to the chart, as well as smoothly transition them as data is changed or updated. This is the first of what will hopefully be a series of D3 tutorials. Lets get started.
+
+<!--excerpt-->
+
+{% include scatter_plot_d3/basics.html %}
 
 So first things first lets make a basic html page and include the D3.js script.
 
