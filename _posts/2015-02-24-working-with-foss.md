@@ -46,3 +46,30 @@ atom/script/build
 {% endhighlight %}
 
 This will take awhile to run but once it's done you should have a fully functional build of Atom. The default location of Atom is in /Applications/Atom.app, so it's easily found in the Launchpad. It can also be launched from the command line by simply running 'atom'.
+
+<h2>Playing Around With Packages</h2>
+
+So once I had Atom installed I started looking around to see what I could find. I looked thought documentation, some of the bug reports, trying to find something I could try. I came across packages, small add-ons that enhance the functionality of the editor, and decided that was as good of place as any to start. So for my second artifact I've decided to follow a tutorial and write a small, easy package to get my feet wet, something to introduce me to how the process of writing them works. The tutorial I followed, located [here](https://atom.io/docs/v0.64.0/your-first-package), replaces the selected text with ascii art. I know it doesn't sound amazing, but I have to start somewhere.
+
+Atom makes it very easy to create new packages. Basically find 'Generate Package' in the menu and Atom creates a default package that we can extend. Following the tutorial was fairly straight forward, The only place I got hung up was on the CoffeeScript syntax. Other than that it was quite simple. The ease of creating the package was suprising, but more so was the ease at creating key bindings. By just adding the method to the package.cson file it basically does it for you. This was my first experience at writing a package for anything, but if this is how enjoyable Atom makes it I'm sure I will be back again.
+
+To satisfy the assignment requirement I thought I should include some images and code fragments for what I actually did. As I said before, the key binding was incredibly simple. They actually have a CSS style syntax that allows you to define the scope for which the key binding will work. For example, in this tutorial the scope is set to the editor window only, entering the shortcut has no effect when the file tree has focus. I could definately see how handy that would be, allowing the same key binding to have diferent effects based on window focus. Anyways, here is what the key binding code looks like.
+
+{% highlight js %}
+'atom-text-editor':
+    'ctrl-alt-a': 'ascii-art:convert'
+{% endhighlight %}
+
+You just tell it what method you want to call, 'convert', and the shortcut, 'ctrl-alt-a'. You can also see the scope, 'atom-text-editor'.
+
+Here it is in action:
+<a href="http://imgur.com/6mdYkQx"><img src="http://i.imgur.com/6mdYkQx.png" title="source: imgur.com" /></a>
+<a href="http://imgur.com/CeZLJZo"><img src="http://i.imgur.com/CeZLJZo.png" title="source: imgur.com" width="720"/></a>
+
+Amazing. Ok maybe not but it's pretty cool to me. I would have never realized how easy it would be.
+
+GitHub repo of the package is hosted by Atom [here](https://github.com/atom/ascii-art)
+
+PasteBin of what I did [here](http://www.pastebin.ca/2947510)
+
+And with that I am done my first post for CMPT395 assignment 2. In the coming weeks there will be a second post where I explore some other artifacts related to FOSS. Thanks.
