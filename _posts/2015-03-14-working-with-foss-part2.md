@@ -39,8 +39,67 @@ Ok, so for the second artifact I wanted to find a bug or enhancement that I coul
 
 The bug report, which can be found [here](https://github.com/atom/atom/issues/2964) seems easy to replicate, although it doesn't seem much like a bug. What the bug report states is that when opening a folder from the command line, if you already have that folder open a second Atom icon will briefly appear on the dock. Ok, so I open up a folder, and open it up again. This is what I see.
 
-<a href="http://imgur.com/maPusgj"><img src="http://i.imgur.com/maPusgj.png" title="source: imgur.com" /></a>
+<img src="http://i.imgur.com/maPusgj.png" title="source: imgur.com" />
 
 As you can tell there is a second Atom logo in the dock. It only appears for a fraction of a second, that's why I don't have a decent photo of it, I had to be really quick.
 
 Now that I know I can reporduce it, I checked my version number and went to post on the thread. There was some recent discussion on the topic, but nobody that confirmed it left a version number, so I did. If you want to check out the thread you can find it [here](https://github.com/atom/atom/issues/2964). Thanks.
+
+<h3>Artifact 3</h3>
+
+For my final artifact I decided to write some actual code. As required for this assignment one of the artifacts must be a modification of the code, so that is sort of what I did. As I was looking through the issues on GitHub I came across someone requesting an [enhancement](https://github.com/atom/atom/issues/6057) that displays the current tab settings in the status bar at the bottom of the window as well as allowing users to change the setting. Currently, to view and change the tab settings you must go into settings and find it listed there. However, in the post on GitHub a contributor mentioned that features like this should not be created through modification of Atom itself, but through a package. So that is what I created. Not so much modifying the Atom code base, but this is the best I could come up with. So with that lets get into it.
+
+On the issue page I mentioned there are a few examples of the requested feature shown, but I chose not to look at them to make sure I didn't copy their code at all. I wanted to see if I could do this on my own.
+
+The first thing I had to do was create a new package. As mentioned in the second artifact of post 1, Atom allows us to easily create a skeleton package. It's created in such a way that allows us to run the code and immediately see this:
+
+<img src="http://i.imgur.com/Mum4syZ.png" title="source: imgur.com" />
+
+My first task was to get that to display in the status bar rather than at the top of the window. After a long time and a lot of Google foo I was able to do it. The code that I had to change was this, that creates an element at the top of the window,
+
+{% highlight coffeescript %}
+@modalPanel = atom.workspace.addModalPanel(
+    item: @testView.getElement(),
+    visible: false
+)
+{% endhighlight %}
+
+to this, that creates a new status bar element:
+
+{% highlight coffeescript %}
+@bottomPanel = atom.workspace.addBottomPanel(
+    item: @showIndentView.getElement()
+)
+{% endhighlight %}
+
+This is what I ended up with at this point. A good start, but now we need to display the actual tab settings.
+
+<img src="http://i.imgur.com/9t9HJzR.png" title="source: imgur.com" />
+
+Looking through the Atom API I found 2 useful functions, [editor.getSoftTabs()](https://atom.io/docs/api/v0.188.0/TextEditor#instance-getSoftTabs) and [editor.getTabLength()](https://atom.io/docs/api/v0.188.0/TextEditor#instance-getTabLength). getSoftTabs returns true if the current settings are soft tabs, and getTabLength returns the size of the tab in spaces. Soft tabs turn into getTabLength number of spaces, and hard tabs turn into a tab character getTabLength is size. So now we can call these functions when we toggle the package to display the current settings. The code that checks the tabs is below, as well as the result.
+
+{% highlight coffeescript %}
+updateIndent: ->
+  editor = atom.workspace.getActiveTextEditor()
+    if (editor)
+      softtabs = editor.getSoftTabs()
+      length = editor.getTabLength()
+      @setText(softtabs, length)
+
+setText: (soft, length) ->
+  if (soft)
+    text = "Spaces: "
+  else
+    text = "Tabs: "
+  @element.children[0].textContent = text + length
+{% endhighlight %}
+
+<img src="http://i.imgur.com/bAiFRO4.png" title="source: imgur.com" />
+
+So at this point lets discuss Atom's tab behaviour. Any file that is opened will use the tab settings as they were when it was opened. If you later change the tab settings, it won't effect the settings of open files, only files opened after the change. This means that multiple opened files can all have different tab settings. Therefore, to display the corrent setting per file I needed an event that fired every time the active file was changed. I found that event, called onDidChangeActivePaneItem. Therefore, any time this event fired, I called the code that checked the tab settings for the current file, and set the text appropriately. It ended up working much better and was much easier than I expected. In the end I had text at the bottom of the pane that accurately displays the windows current tab settings, even when multiple windows have different settings.
+
+I am quite happy with the result. I do however regret that I was unable to get the package to allow changing the settings from the status bar. It was still an enjoyable excersize.
+
+The code can be found on my [GitHub](https://github.com/lhoworko/show-indent).
+
+And with that I am done the second FOSS post.
