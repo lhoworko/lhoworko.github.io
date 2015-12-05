@@ -17,8 +17,14 @@ author:
 # Custom vars
 version:          1.0.0
 github:           "https://github.com/lhoworko"
-pages_list:
+page_list:
   Home:           '/'
   About:          '/about/'
   Archive:        '/archive/'
-  GitHub:         'https://github.com/lhoworko'
+social_list:
+  GitHub:
+    link:		  "https://github.com/lhoworko"
+    icon:		  "fa fa-github fa-2x"
+  Twitter:
+    link:		  "https://twitter.com/lhoworko"
+    icon:		  "fa fa-twitter fa-2x"

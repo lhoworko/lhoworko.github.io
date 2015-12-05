@@ -1,0 +1,35 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+          data-target="#lh-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" href="{{ site.baseurl }}">{{ site.title }}</a>
+    </div> <!-- .navbar-header -->
+
+    <div id="lh-navbar" class="navbar-collapse collapse">
+
+      <!-- navbar links left justified -->
+      <ul class="nav navbar-nav">
+      </ul>
+
+      <!-- navbar links right justified -->
+      <ul class="nav navbar-nav navbar-right">
+        {% for node in site.page_list %}
+          <li><a class="{% if page.dir == node[1] %}active{% endif %}" href="{{ node[1] }}">{{ node[0] }}</a></li>
+        {% endfor %}
+
+        {% for node in site.social_list %}
+          <li><a class="icon" href="{{ node[1].link }}" title="{{ node[0] }}"><i class="{{ node[1].icon }}"></i></a></li>
+        {% endfor %}
+      </ul>
+
+    </div> <!-- .navbar-collapse.collapse -->
+  </div> <!-- .container-fluid -->
+</nav>

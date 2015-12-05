@@ -1,0 +1,16 @@
+body {
+  padding-top: 70px;
+}
+
+.navbar-default a.active {
+  color: #000 !important;
+}
+
+.navbar-inverse a.active {
+  color: #fff !important;
+}
+
+nav li .icon {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
